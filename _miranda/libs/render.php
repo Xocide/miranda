@@ -70,6 +70,11 @@ class Render
 		if(!file_exists(APPPATH.'views/layouts/'.$layout.'.php'))
 			error('Error loading layout: '.$layout);
 		
+		ob_start();
+		require(APPPATH.'views/layouts/'.$layout.'.php');
+		$page = ob_get_contents();
+		ob_end_clean();
+		
 		if(extension_loaded('zlib'))
 		{
 			if(isset($_SERVER['HTTP_ACCEPT_ENCODING']) and strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)
@@ -80,7 +85,7 @@ class Render
 		
 		header("X-Powered-By: Miranda ".\Miranda\VERSION);
 		
-		$memory = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2).'MB';
-		require(APPPATH.'views/layouts/'.$layout.'.php');
+		//$memory = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2).'MB';
+		echo $page;
 	}
 }
