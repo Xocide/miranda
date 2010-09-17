@@ -20,6 +20,8 @@
 
 namespace Miranda;
 
+const VERSION = "0.1";
+
 class Miranda
 {
 	public function __construct()
