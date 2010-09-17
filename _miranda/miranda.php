@@ -26,12 +26,12 @@ class Miranda
 {
 	public function __construct()
 	{
-		
+		$this->render = new Render;
 	}
 	
 	public function __destruct()
 	{
-		Render::view(Router::$controller.'/'.Router::$method);
-		Render::display();
+		if(!isset($this->view)) $this->view = Router::$controller.'/'.Router::$method;
+		$this->render->view($this->view);
 	}
 }

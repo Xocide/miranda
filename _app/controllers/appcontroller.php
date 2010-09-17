@@ -19,7 +19,6 @@
  */
 
 namespace App\Controllers;
-use \Miranda\Render as Render;
 
 class AppController extends \Miranda\Miranda
 {

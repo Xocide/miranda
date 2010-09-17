@@ -22,13 +22,16 @@ namespace Miranda;
 
 class Render
 {
-	private static $output;
-	private static $ob_level = NULL;
+	private $output = '';
+	private $ob_level = NULL;
 	
-	public static function view($view,$return = false)
+	public function __construct()
 	{
-		if(self::$ob_level === NULL) self::$ob_level = ob_get_level();
-		
+		$this->ob_level = ob_get_level();
+	}
+	
+	public function view($view,$return = false)
+	{
 		$view = strtolower($view);
 		if(!file_exists(APPPATH.'views/'.$view.'.php'))
 		{
@@ -47,20 +50,20 @@ class Render
 			return $buffer;
 		}
 		
-		if(ob_get_level() > self::$ob_level + 1)
+		if(ob_get_level() > $this->ob_level + 1)
 		{
 			ob_end_flush();
 		}
 		else
 		{
-			self::$output .= ob_get_contents();
+			$this->output .= ob_get_contents();
 			@ob_end_clean();
 		}
 	}
 	
-	public static function display($layout='default')
+	public function display($layout='default')
 	{
-		$output = self::$output;
+		$output = $this->output;
 		
 		// Check if layout exists.
 		if(!file_exists(APPPATH.'views/layouts/'.$layout.'.php'))
