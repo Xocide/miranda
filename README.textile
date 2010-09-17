@@ -7,3 +7,7 @@ h2. Requirements
 Miranda requires:
 * PHP 5.3+
 * mod_rewrite (or similar)
+
+h2. Some info
+
+Miranda is the successor to "Avalon":http://github.com/Xocide/Avalon.
