@@ -1,1 +1,3 @@
-<h1>It works!</h1>
+<div align="center">
+	<h2>It works!</h2>
+</div>
