@@ -51,10 +51,10 @@
 				<h1>Miranda</h1>
 			</div>
 			<div id="page" class="content">
-				<?php echo $output; ?> 
+<?php echo $output; ?> 
 			</div>
 			<div id="footer">
-				Miranda <?php echo \Miranda\VERSION; ?>
+				Miranda <?php echo Miranda\VERSION; ?> 
 			</div>
 		</div>
 	</body>

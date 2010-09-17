@@ -22,4 +22,13 @@ namespace Miranda;
 
 class Loader
 {
+	public function helper($helper)
+	{
+		if(file_exists(APPPATH.'helpers/'.$helper.'.php'))
+			include(APPAPTH.'helpers/'.$helper.'.php');
+		elseif(file_exists(COREPATH.'helpers/'.$helper.'.php'))
+			include(COREPATH.'helpers/'.$helper.'.php');
+		else
+			error("cant load helper: ".$helper);
+	}
 }

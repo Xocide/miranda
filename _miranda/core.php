@@ -25,6 +25,7 @@ use \Miranda\Render as Render;
 
 // Load the core
 require("miranda.php");
+require("common.php");
 
 // Load the core classes
 require(COREPATH."libs/loader.php");
@@ -50,5 +51,10 @@ else { die("cant load controller: ".Router::$controller); }
 if(!method_exists($controller,$method)) die("method doesnt exist: ".$method);
 
 // Engage!
+$render = new Render;
 $miranda = new $controller();
 $miranda->$method();
+
+// Render the page
+$render->view(isset($miranda->view) ? $miranda->view : Router::$controller.'/'.Router::$method);
+$render->display($miranda->layout);

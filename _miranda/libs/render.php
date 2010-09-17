@@ -22,9 +22,8 @@ namespace Miranda;
 
 class Render
 {
-	private $output = '';
-	private $ob_level = NULL;
-	private $render = true;
+	private $final_output = '';
+	private $ob_level;
 	
 	public function __construct()
 	{
@@ -36,26 +35,16 @@ class Render
 	 *
 	 * @param string $view The view file path, without extension.
 	 */
-	public function view($view,$return = false)
+	public function view($view)
 	{
 		$view = strtolower($view);
 		if(!file_exists(APPPATH.'views/'.$view.'.php'))
 		{
-			ob_end_clean();
-			$this->render = false;
-			die('Error loading view: '.$view);
+			error('Error loading view: '.$view);
 		}
 		
 		ob_start();
 		include(APPPATH.'views/'.$view.'.php');
-		
-		// Return the file data if requested
-		if($return)
-		{		
-			$buffer = ob_get_contents();
-			@ob_end_clean();
-			return $buffer;
-		}
 		
 		if(ob_get_level() > $this->ob_level + 1)
 		{
@@ -63,7 +52,7 @@ class Render
 		}
 		else
 		{
-			$this->output .= ob_get_contents();
+			$this->final_output .= ob_get_contents();
 			@ob_end_clean();
 		}
 	}
@@ -75,21 +64,11 @@ class Render
 	 */
 	public function display($layout='default')
 	{
-		$output = $this->output;
-		
-		if(!$this->render) {
-			return false;
-			exit;
-		}
+		$output = $this->final_output;
 		
 		// Check if layout exists.
 		if(!file_exists(APPPATH.'views/layouts/'.$layout.'.php'))
-			die('Error loading layout: '.$layout);
-		
-		ob_start();
-		require(APPPATH.'views/layouts/'.$layout.'.php');
-		$output = ob_get_contents();
-		ob_end_clean();
+			error('Error loading layout: '.$layout);
 		
 		if(extension_loaded('zlib'))
 		{
@@ -101,8 +80,7 @@ class Render
 		
 		header("X-Powered-By: Miranda ".\Miranda\VERSION);
 		
-		$memory	 = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2).'MB';
-		$output = str_replace(array('{memory_useage}'),array($memory),$output);
-		echo $output;
+		$memory = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2).'MB';
+		require(APPPATH.'views/layouts/'.$layout.'.php');
 	}
 }

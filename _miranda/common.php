@@ -18,23 +18,18 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Miranda;
-
-const VERSION = "0.1";
-
-class Miranda
+/**
+ * Prints a nice little error message.
+ *
+ * @param string $message The error message.
+ */
+function error($message)
 {
-	public $layout = 'default';
-	
-	public function __construct()
-	{
-		global $render;
-		$this->render = $render;
-		//$this->render = new Render;
-		$this->load = new Loader;
-	}
-	
-	public function __destruct()
-	{
-	}
+	ob_end_flush();
+	print('<blockquote style="width: 800px; margin: 0 auto; font-family: arial; font-size: 14px;">');
+	print('<h1 style="margin:0;">Error</h1>');
+	print('<div style="padding: 5px; border: 2px solid darkred; background: #f9f9f9;">'.$message.'</div>');
+	print('<small>Miranda '.\Miranda\VERSION);
+	print('</blockquote>');
+	exit;
 }
