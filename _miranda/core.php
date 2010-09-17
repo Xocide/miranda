@@ -20,12 +20,29 @@
 
 use \Miranda\Loader as Load;
 use \Miranda\Router as Router;
+use \Miranda\Render as Render;
 
 // Load the core
 require("miranda.php");
 
 // Load the core classes
-require("libs/loader.php");
-require("libs/router.php");
+require(COREPATH."libs/loader.php");
+require(COREPATH."libs/router.php");
+require(COREPATH."libs/render.php");
 
 Router::route();
+$controller = '\App\Controllers\\'.Router::$controller.'Controller'; // Build the controller name with namespace.
+$method = Router::$method;
+
+// Load the controller
+if(file_exists(APPPATH . 'controllers/'.Router::$controller.'.php'))
+{
+	require(APPPATH . 'controllers/'.Router::$controller.'.php');
+}
+else { die("cant load controller: ".Router::$controller); }
+
+// Check if the method exists...
+if(!method_exists($controller,$method)) die("method doesnt exist: ".$method);
+
+$miranda = new $controller();
+$miranda->$method();

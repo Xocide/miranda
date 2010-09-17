@@ -22,6 +22,7 @@ namespace Miranda;
 
 class Router
 {
+	private static $routes = array();
 	public static $controller;
 	public static $method;
 	
@@ -31,6 +32,56 @@ class Router
 	
 	public static function route()
 	{
-		echo "route()";
+		if(!isset($_SERVER['PATH_INFO'])) $_SERVER['PATH_INFO'] = '';
+		
+		// Fetch router config
+		require(APPPATH.'config/routes.php');
+		self::$routes = array_merge(self::$routes,$routes);
+		
+		// Get URI segments
+		$request = trim($_SERVER['PATH_INFO'],'/');
+		
+		// Check if we only have one route
+		if(count($routes) == 1)
+		{
+			self::_set_request($request);
+			return;
+		}
+		
+		// Loop through the route array looking for wild-cards
+		foreach(self::$routes as $key => $val)
+		{						
+			// Convert wild-cards to RegEx
+			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
+			
+			// Do we have a back-reference?
+			if(strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
+				$val = preg_replace('#^'.$key.'$#', $val, $request);
+			
+			// Check if theres a RegEx match
+			if(preg_match('#^'.$key.'$#', $request))
+			{
+				self::_set_request($val);
+				return;
+			}
+		}
+
+		// No matches found, give it the current uri
+		self::_set_request($request);
+	}
+	
+	// Private function used to set the request controller and method.
+	private static function _set_request($uri)
+	{
+		$segs = explode('/',$uri);
+		
+		if($segs[0] == '')
+			$segs = explode('/',self::$routes['root']);
+		
+		self::$controller = $segs[0];
+		if(!isset($segs[1]))
+			self::$method = 'index';
+		else
+			self::$method = $segs[1];
 	}
 }

@@ -18,18 +18,4 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Miranda;
-
-class Miranda
-{
-	public function __construct()
-	{
-		
-	}
-	
-	public function __destruct()
-	{
-		Render::view(Router::$controller.'/'.Router::$method);
-		Render::display();
-	}
-}
+$routes['root'] = "Welcome";

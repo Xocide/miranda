@@ -20,16 +20,44 @@
 
 namespace Miranda;
 
-class Miranda
+class Render
 {
-	public function __construct()
+	private static $output;
+	private static $ob_level = 0;
+	
+	public static function view($view,$return = false)
 	{
+		$view = strtolower($view);
+		if(!file_exists(APPPATH.'views/'.$view.'.php'))
+		{
+			ob_end_clean();
+			die('Error loading view: '.$view);
+		}
 		
+		ob_start();
+		include(APPPATH.'views/'.$view.'.php');
+		
+		// Return the file data if requested
+		if($return)
+		{		
+			$buffer = ob_get_contents();
+			@ob_end_clean();
+			return $buffer;
+		}
+		
+		if(ob_get_level() > self::$ob_level + 1)
+		{
+			ob_end_flush();
+		}
+		else
+		{
+			self::$output .= ob_get_contents();
+			@ob_end_clean();
+		}
 	}
 	
-	public function __destruct()
+	public static function display()
 	{
-		Render::view(Router::$controller.'/'.Router::$method);
-		Render::display();
+		echo self::$output;
 	}
 }

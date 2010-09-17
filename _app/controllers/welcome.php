@@ -18,18 +18,12 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Miranda;
+namespace App\Controllers;
 
-class Miranda
+class WelcomeController extends \Miranda\Miranda
 {
-	public function __construct()
+	public function index()
 	{
 		
-	}
-	
-	public function __destruct()
-	{
-		Render::view(Router::$controller.'/'.Router::$method);
-		Render::display();
 	}
 }

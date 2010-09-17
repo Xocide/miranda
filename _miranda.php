@@ -18,7 +18,7 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
-define("MIRANDADIR",__DIR__.'/_miranda/');
-define("APPDIR",__DIR__.'/_app/');
+define("COREPATH",__DIR__.'/_miranda/');
+define("APPPATH",__DIR__.'/_app/');
 
-require(MIRANDADIR . "core.php");
+require(COREPATH . "core.php");
