@@ -2,6 +2,12 @@ h1. Miranda
 
 Miranda is a PHP framework compatible with PHP 5.3+ only, due to the required namespace support.
 
+h2. How it works
+
+Miranda routes all requests to the @_app/public@ directory, from there the @index.php@ loads Miranda which checks the requests URI and loads the controller.
+
+Controllers extend the @AppController@ class, which extends the Miranda core, which auto loads the view files for the controller method.
+
 h2. Requirements
 
 Miranda requires:
