@@ -19,10 +19,8 @@
  */
 
 namespace App\Controllers;
+use \Miranda\Render as Render;
 
-class WelcomeController extends AppController
+class AppController extends \Miranda\Miranda
 {
-	public function index()
-	{
-	}
 }

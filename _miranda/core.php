@@ -30,6 +30,9 @@ require(COREPATH."libs/loader.php");
 require(COREPATH."libs/router.php");
 require(COREPATH."libs/render.php");
 
+// Load the app controller
+require(APPPATH."controllers/appcontroller.php");
+
 Router::route();
 $controller = '\App\Controllers\\'.Router::$controller.'Controller'; // Build the controller name with namespace.
 $method = Router::$method;
