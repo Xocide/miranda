@@ -1,7 +1,9 @@
 h1. Miranda
+
 Miranda is a PHP framework compatible with PHP 5.3+ only, due to the required namespace support.
 
 h2. Requirements
+
 Miranda requires:
 * PHP 5.3+
 * mod_rewrite (or similar)
