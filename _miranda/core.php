@@ -35,9 +35,9 @@ $controller = '\App\Controllers\\'.Router::$controller.'Controller'; // Build th
 $method = Router::$method;
 
 // Load the controller
-if(file_exists(APPPATH . 'controllers/'.Router::$controller.'.php'))
+if(file_exists(APPPATH . 'controllers/'.strtolower(Router::$controller).'.php'))
 {
-	require(APPPATH . 'controllers/'.Router::$controller.'.php');
+	require(APPPATH . 'controllers/'.strtolower(Router::$controller).'.php');
 }
 else { die("cant load controller: ".Router::$controller); }
 

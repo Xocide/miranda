@@ -79,7 +79,7 @@ class Render
 			}
 		}
 		
-		header("X-Powered-by: Miranda ".\Miranda\VERSION);
+		header("X-Powered-By: Miranda ".\Miranda\VERSION);
 		
 		$memory	 = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2).'MB';
 		$output = str_replace(array('{memory_useage}'),array($memory),$output);
