@@ -32,6 +32,8 @@ class Miranda
 	public function __destruct()
 	{
 		if(!isset($this->view)) $this->view = Router::$controller.'/'.Router::$method;
+		if(!isset($this->layout)) $this->layout = 'default';
 		$this->render->view($this->view);
+		$this->render->display($this->layout);
 	}
 }

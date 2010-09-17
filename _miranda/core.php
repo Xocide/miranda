@@ -49,4 +49,3 @@ if(!method_exists($controller,$method)) die("method doesnt exist: ".$method);
 
 $miranda = new $controller();
 $miranda->$method();
-$miranda->render->display();

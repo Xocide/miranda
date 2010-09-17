@@ -24,6 +24,7 @@ class Render
 {
 	private $output = '';
 	private $ob_level = NULL;
+	private $render = true;
 	
 	public function __construct()
 	{
@@ -36,6 +37,7 @@ class Render
 		if(!file_exists(APPPATH.'views/'.$view.'.php'))
 		{
 			ob_end_clean();
+			$this->render = false;
 			die('Error loading view: '.$view);
 		}
 		
@@ -64,6 +66,11 @@ class Render
 	public function display($layout='default')
 	{
 		$output = $this->output;
+		
+		if(!$this->render) {
+			return false;
+			exit;
+		}
 		
 		// Check if layout exists.
 		if(!file_exists(APPPATH.'views/layouts/'.$layout.'.php'))
