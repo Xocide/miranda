@@ -18,6 +18,7 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Setup the core libraries.
 use \Miranda\Loader as Load;
 use \Miranda\Router as Router;
 use \Miranda\Render as Render;
@@ -33,6 +34,7 @@ require(COREPATH."libs/render.php");
 // Load the app controller
 require(APPPATH."controllers/appcontroller.php");
 
+// Do the routing
 Router::route();
 $controller = '\App\Controllers\\'.Router::$controller.'Controller'; // Build the controller name with namespace.
 $method = Router::$method;
@@ -47,5 +49,6 @@ else { die("cant load controller: ".Router::$controller); }
 // Check if the method exists...
 if(!method_exists($controller,$method)) die("method doesnt exist: ".$method);
 
+// Engage!
 $miranda = new $controller();
 $miranda->$method();

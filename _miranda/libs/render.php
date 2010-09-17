@@ -31,6 +31,11 @@ class Render
 		$this->ob_level = ob_get_level();
 	}
 	
+	/**
+	 * Loads a view file
+	 *
+	 * @param string $view The view file path, without extension.
+	 */
 	public function view($view,$return = false)
 	{
 		$view = strtolower($view);
@@ -63,6 +68,11 @@ class Render
 		}
 	}
 	
+	/**
+	 * Renders the page, loaded views and layout.
+	 *
+	 * @param string $layout The layout to use.
+	 */
 	public function display($layout='default')
 	{
 		$output = $this->output;

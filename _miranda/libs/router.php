@@ -26,10 +26,9 @@ class Router
 	public static $controller;
 	public static $method;
 	
-	public function __construct()
-	{
-	}
-	
+	/**
+	 * Checks the URI for what controller and method to load.
+	 */
 	public static function route()
 	{
 		if(!isset($_SERVER['PATH_INFO'])) $_SERVER['PATH_INFO'] = '';

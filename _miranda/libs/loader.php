@@ -22,8 +22,4 @@ namespace Miranda;
 
 class Loader
 {
-	public static function view($view)
-	{
-		echo $view;
-	}
 }
