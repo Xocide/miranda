@@ -85,7 +85,8 @@ class Render
 		
 		header("X-Powered-By: Miranda ".\Miranda\VERSION);
 		
-		//$memory = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2).'MB';
+		$memory = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2).'MB';
+		$page = str_replace('{memory_useage}',$memory,$page);
 		echo $page;
 	}
 }
