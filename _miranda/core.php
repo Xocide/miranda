@@ -22,6 +22,7 @@
 use \Miranda\Loader as Load;
 use \Miranda\Router as Router;
 use \Miranda\Render as Render;
+use \Miranda\URI as URI;
 
 // Load the core
 require("miranda.php");
@@ -31,6 +32,7 @@ require("common.php");
 require(COREPATH."libs/loader.php");
 require(COREPATH."libs/router.php");
 require(COREPATH."libs/render.php");
+require(COREPATH."libs/uri.php");
 
 // Load the app controller
 require(APPPATH."controllers/appcontroller.php");
@@ -52,6 +54,7 @@ if(!method_exists($controller,$method)) die("method doesnt exist: ".$method);
 
 // Engage!
 $render = new Render;
+$uri = new URI;
 $miranda = new $controller();
 $miranda->$method();
 
