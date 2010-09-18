@@ -30,8 +30,9 @@ class Miranda
 	{
 		global $render;
 		$this->render = $render;
-		//$this->render = new Render;
 		$this->load = new Loader;
+		
+		$this->load->helper('html');
 	}
 	
 	public function __destruct()
