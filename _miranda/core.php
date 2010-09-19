@@ -57,10 +57,10 @@ if(file_exists(APPPATH . 'controllers/'.strtolower(Router::$controller).'.php'))
 {
 	require(APPPATH . 'controllers/'.strtolower(Router::$controller).'.php');
 }
-else { die("cant load controller: ".Router::$controller); }
+else { error("cant load controller: ".Router::$controller); }
 
 // Check if the method exists...
-if(!method_exists($controller,$method)) die("method doesnt exist: ".$method);
+if(!method_exists($controller,$method)) error("method doesnt exist: ".$method);
 
 // Engage!
 $render = new Render;
