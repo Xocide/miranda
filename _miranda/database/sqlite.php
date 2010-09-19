@@ -18,26 +18,20 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Miranda;
+namespace Miranda\Database;
+use \Sqlite3 as SQlite3;
 
-const VERSION = "0.1";
-
-class Miranda
+class SQLite extends SQLite3
 {
-	public $_layout = 'default';
+	private $link;
 	
-	public function __construct()
+	public function __construct($config)
 	{
-		global $render,$db;
-		
-		$this->db = $db;
-		$this->render = $render;
-		$this->load = new Loader;
-		
-		$this->load->helper('html');
+		$this->open(APPPATH.$config['file']);
 	}
 	
-	public function __destruct()
+	public function fetch_array($res)
 	{
+		return $res->fetchArray();
 	}
 }

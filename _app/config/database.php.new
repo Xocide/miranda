@@ -18,26 +18,10 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Miranda;
-
-const VERSION = "0.1";
-
-class Miranda
-{
-	public $_layout = 'default';
-	
-	public function __construct()
-	{
-		global $render,$db;
-		
-		$this->db = $db;
-		$this->render = $render;
-		$this->load = new Loader;
-		
-		$this->load->helper('html');
-	}
-	
-	public function __destruct()
-	{
-	}
-}
+// SQLite
+/*
+$db = array(
+	'engine' => 'SQLite',
+	'file' => 'mydb.sqlite'
+);
+*/

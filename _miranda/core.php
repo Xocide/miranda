@@ -34,6 +34,16 @@ require(COREPATH."libs/router.php");
 require(COREPATH."libs/render.php");
 require(COREPATH."libs/uri.php");
 
+// Database
+if(file_exists(APPPATH."config/database.php"))
+{
+	include(APPPATH."config/database.php");
+	require(COREPATH."database/".$db['engine'].".php");
+	$dbclass = "\Miranda\Database\\".$db['engine'];
+	$db = new $dbclass($db);
+	unset($dbclass);
+}
+
 // Load the app controller
 require(APPPATH."controllers/appcontroller.php");
 
@@ -59,5 +69,5 @@ $miranda = new $controller();
 $miranda->$method();
 
 // Render the page
-$render->view(isset($miranda->view) ? $miranda->view : Router::$controller.'/'.Router::$method);
-$render->display($miranda->layout);
+$render->view(isset($miranda->_view) ? $miranda->_view : Router::$controller.'/'.Router::$method);
+$render->display($miranda->_layout);
