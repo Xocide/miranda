@@ -24,20 +24,21 @@ const VERSION = "0.1";
 
 class Miranda
 {
+	/**
+	 * Layout filename to use.
+	 */
 	public $_layout = 'default';
 	
 	public function __construct()
 	{
 		global $render,$db;
 		
+		// Get the core classes
 		$this->db = $db;
 		$this->render = $render;
 		$this->load = new Loader;
 		
+		// Load some core helpers
 		$this->load->helper('html');
-	}
-	
-	public function __destruct()
-	{
 	}
 }

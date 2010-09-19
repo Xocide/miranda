@@ -31,6 +31,11 @@ class URI
 		$this->seg = explode('/',trim(($_SERVER['PATH_INFO'] != '' ? $_SERVER['PATH_INFO'] : $_SERVER['ORIG_PATH_INFO']),'/'));
 	}
 	
+	/**
+	 * Returns the value of the segment number.
+	 *
+	 * @param integer $segment Segment number.
+	 */
 	public function seg($segment)
 	{
 		return $this->seg[$segment];

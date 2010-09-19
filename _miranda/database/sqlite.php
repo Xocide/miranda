@@ -30,6 +30,11 @@ class SQLite extends SQLite3
 		$this->open(APPPATH.$config['file']);
 	}
 	
+	/**
+	 * Fetches an array of the specified query result.
+	 *
+	 * @param resource $res The query result.
+	 */
 	public function fetch_array($res)
 	{
 		return $res->fetchArray();

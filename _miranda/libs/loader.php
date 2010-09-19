@@ -22,6 +22,11 @@ namespace Miranda;
 
 class Loader
 {
+	/**
+	 * Loads a helper
+	 *
+	 * @param string $helper Helper filename.
+	 */
 	public function helper($helper)
 	{
 		if(file_exists(APPPATH.'helpers/'.$helper.'.php'))

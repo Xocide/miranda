@@ -20,6 +20,13 @@
 
 class HTML
 {
+	/**
+	 * Returns the code for a link.
+	 *
+	 * @param string $url The URL.
+	 * @param string $label The label.
+	 * @param array $options Options for the URL code (class, title, etc).
+	 */
 	public static function link($url,$label,$options=array())
 	{
 		return '<a href="'.$url.'"'.(isset($options['class']) ? ' class="'.$options['class'].'"' :'').'>'.$label.'</a>';
