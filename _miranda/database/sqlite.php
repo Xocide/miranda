@@ -24,10 +24,12 @@ use \Sqlite3 as SQlite3;
 class SQLite extends SQLite3
 {
 	private $link;
+	public $prefix = '';
 	
 	public function __construct($config)
 	{
 		$this->open(APPPATH.$config['file']);
+		$this->prefix = (isset($config['prefix']) ? $config['prefix'] :'');
 	}
 	
 	/**
@@ -38,5 +40,80 @@ class SQLite extends SQLite3
 	public function fetch_array($res)
 	{
 		return $res->fetchArray();
+	}
+	
+	/**
+	 * Returns the ID of the last inserted row.
+	 * @return integer
+	 */
+	public function insert_id()
+	{
+		return $this->lastInsertRowID();
+	}
+	
+	/**
+	 * Escapes a string for use in a query.
+	 *
+	 * @param string $string String to escape.
+	 * @return string
+	 */
+	public function escape_string($string)
+	{
+		return $this->escapeString($string);
+	}
+	
+	/**
+	 * Escape script shortcut.
+	 *
+	 * @param string $string String to escape.
+	 * @return string
+	 */
+	public function es($string)
+	{
+		return $this->escapeString($string);
+	}
+	
+	/**
+	 * Easy SELECT query builder.
+	 *
+	 * @param string $table Table name to query
+	 * @param array $args Arguments for the query
+	 * @return array
+	 */
+	public function select($table,$args=array())
+	{
+		$query = 'SELECT * FROM '.$this->prefix.$table.' ';
+		
+		$orderby = (isset($args['orderby']) ? " ORDER BY ".$args['orderby'] : NULL);
+		unset($args['orderby']);
+		
+		$limit = (isset($args['limit']) ? ' LIMIT '.$args['limit'] : NULL);
+		unset($args['limit']);
+		
+		if(isset($args['where']) && is_array($args['where'])) {
+			$fields = array();
+			foreach($args['where'] as $field => $value)
+			{
+				$fields[] = $field."='".$value."'";
+			}
+			$fields = ' WHERE '.implode(' AND ',$fields);
+		} else {
+			$fields = (isset($args['where']) ? $args['where'] : '');
+		}
+		
+		$query .= $fields;
+		$query .= $orderby;
+		$query .= $limit;
+		
+		if(isset($this->results[md5($query)])) return $this->results[md5($query)];
+		
+		$rows = array();
+		$result = $this->query($query);
+		while($row = $this->fetch_array($result))
+			$rows[] = $row;
+		
+		$this->results[md5($query)] = $rows;
+		
+		return $rows;
 	}
 }
