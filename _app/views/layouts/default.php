@@ -3,7 +3,7 @@
 	<head>
 		<title>My App</title>
 		<?php echo HTML::css_inc_tag(anchor('css/miranda.css')); ?>
-		<?php echo HTML::js_inc_tag(anchor('js/jquery.min.js')); ?>
+		<?php echo HTML::js_inc_tag('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'); ?>
 	</head>
 	<body>
 		<div id="wrapper">
