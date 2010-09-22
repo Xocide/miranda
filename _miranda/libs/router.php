@@ -31,14 +31,12 @@ class Router
 	 */
 	public static function route()
 	{
-		if(!isset($_SERVER['PATH_INFO'])) $_SERVER['PATH_INFO'] = '';
-		
 		// Fetch router config
 		require(APPPATH.'config/routes.php');
 		self::$routes = array_merge(self::$routes,$routes);
 		
 		// Get URI segments
-		$request = trim($_SERVER['PATH_INFO'],'/');
+		$request = trim((isset($_REQUEST['url']) ? $_REQUEST['url'] : ''),'/');
 		
 		// Check if we only have one route
 		if(count($routes) == 1)
