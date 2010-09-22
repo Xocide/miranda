@@ -22,6 +22,8 @@ namespace Miranda;
 
 class Loader
 {
+	private $models = array();
+	
 	/**
 	 * Loads a helper
 	 *
@@ -30,10 +32,23 @@ class Loader
 	public function helper($helper)
 	{
 		if(file_exists(APPPATH.'helpers/'.$helper.'.php'))
-			include(APPAPTH.'helpers/'.$helper.'.php');
+			include(APPPATH.'helpers/'.$helper.'.php');
 		elseif(file_exists(COREPATH.'helpers/'.$helper.'.php'))
 			include(COREPATH.'helpers/'.$helper.'.php');
 		else
 			error("cant load helper: ".$helper);
+	}
+	
+	public function model($name)
+	{
+		if(file_exists(APPPATH.'models/'.$name.'.php'))
+			include(APPPATH.'models/'.$name.'.php');
+		else
+			error("cant load model: ".$name);
+		
+		$model = $name.'Model';
+		$this->models[$name] = new $model;
+		
+		return $this->models[$name];
 	}
 }

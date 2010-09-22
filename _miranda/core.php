@@ -63,8 +63,8 @@ else { error("cant load controller: ".Router::$controller); }
 if(!method_exists($controller,$method)) error("method doesnt exist: ".$method);
 
 // Engage!
-$render = new Render;
 $uri = new URI;
+$render = new Render;
 $miranda = new $controller();
 $miranda->$method();
 

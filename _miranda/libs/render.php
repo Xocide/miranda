@@ -27,6 +27,8 @@ class Render
 	
 	public function __construct()
 	{
+		global $uri;
+		$this->uri = $uri;
 		$this->ob_level = ob_get_level();
 	}
 	

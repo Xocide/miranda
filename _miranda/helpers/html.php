@@ -29,7 +29,7 @@ class HTML
 	 */
 	public static function link($url,$label,$options=array())
 	{
-		return '<a href="'.$url.'"'.(isset($options['class']) ? ' class="'.$options['class'].'"' :'').'>'.$label.'</a>';
+		return '<a href="'.$url.'"'.(isset($options['class']) ? ' class="'.$options['class'].'"' :'').'>'.$label.'</a>'.PHP_EOL;
 	}
 	
 	/**
@@ -39,7 +39,7 @@ class HTML
 	 */
 	public static function css_inc_tag($file,$media='screen')
 	{
-		return '<link href="'.$file.'" media="'.$media.'" rel="stylesheet" type="text/css" />';
+		return '<link href="'.$file.'" media="'.$media.'" rel="stylesheet" type="text/css" />'.PHP_EOL;
 	}
 
 	/**
@@ -49,7 +49,7 @@ class HTML
 	 */
 	public static function js_inc_tag($file)
 	{
-		return '<script src="'.$file.'" type="text/javascript"></script>';
+		return '<script src="'.$file.'" type="text/javascript"></script>'.PHP_EOL;
 	}
 }
 

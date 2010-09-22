@@ -40,5 +40,6 @@ class Miranda
 		
 		// Load some core helpers
 		$this->load->helper('html');
+		$this->load->helper('form');
 	}
 }
