@@ -34,9 +34,19 @@ class Miranda
 	 */
 	public $_vars = array();
 	
+	// Flash message
+	private $_flash = NULL;
+	
 	public function __construct()
 	{
 		global $render,$db;
+		
+		// Get the flash message
+		if(isset($_SESSION['flash']))
+		{
+			$this->_flash = $_SESSION['flash'];
+			unset($_SESSION['flash']);
+		}
 		
 		// Get the core classes
 		$this->db = $db;
@@ -48,23 +58,27 @@ class Miranda
 		$this->load->helper('form');
 	}
 	
+	/**
+	 * Set a variable accessible from the views.
+	 *
+	 * @param string $var The variable name.
+	 * @param mixed $val The value.
+	 */
 	public function set($var,$val)
 	{
 		$this->_vars[$var] = $val;
 	}
 	
+	/**
+	 * Set or get the flash message.
+	 *
+	 * @param string $message The message to set.
+	 */
 	public function flash($message='')
 	{
 		if(empty($message))
-		{
-			if(!isset($_SESSION['flash'])) return '';
-			$flash = $_SESSION['flash'];
-			unset($_SESSION['flash']);
-			return $flash;
-		}
+			return $this->_flash;
 		else
-		{
 			$_SESSION['flash'] = $message;
-		}
 	}
 }
