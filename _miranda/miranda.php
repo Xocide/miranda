@@ -29,6 +29,11 @@ class Miranda
 	 */
 	public $_layout = 'default';
 	
+	/**
+	 * Variables for the views.
+	 */
+	public $_vars = array();
+	
 	public function __construct()
 	{
 		global $render,$db;
@@ -41,5 +46,25 @@ class Miranda
 		// Load some core helpers
 		$this->load->helper('html');
 		$this->load->helper('form');
+	}
+	
+	public function set($var,$val)
+	{
+		$this->_vars[$var] = $val;
+	}
+	
+	public function flash($message='')
+	{
+		if(empty($message))
+		{
+			if(!isset($_SESSION['flash'])) return '';
+			$flash = $_SESSION['flash'];
+			unset($_SESSION['flash']);
+			return $flash;
+		}
+		else
+		{
+			$_SESSION['flash'] = $message;
+		}
 	}
 }

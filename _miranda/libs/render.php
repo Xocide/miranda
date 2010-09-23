@@ -39,6 +39,12 @@ class Render
 	 */
 	public function view($view)
 	{
+		global $miranda;
+		
+		// Make the set variables accessible.
+		foreach($miranda->_vars as $var => $val)
+			$$var = $val;
+		
 		$view = strtolower($view);
 		if(!file_exists(APPPATH.'views/'.$view.'.php'))
 		{
@@ -66,6 +72,12 @@ class Render
 	 */
 	public function display($layout='default')
 	{
+		global $miranda;
+		
+		// Make the set variables accessible.
+		foreach($miranda->_vars as $var => $val)
+			$$var = $val;
+		
 		$output = $this->final_output;
 		
 		// Check if layout exists.

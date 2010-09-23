@@ -18,6 +18,8 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
+session_start();
+
 // Setup the core libraries.
 use \Miranda\Loader as Load;
 use \Miranda\Router as Router;
