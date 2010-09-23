@@ -116,4 +116,56 @@ class SQLite extends SQLite3
 		
 		return $rows;
 	}
+	
+	/**
+	 * Easy INSERT query builder.
+	 *
+	 * @param string $table Table name to insert into
+	 * @param array $args Arguments for the query
+	 */
+	public function insert($table,$data=array())
+	{
+		$fields = array();
+		$values = array();
+		
+		// Split the field name and value into the arrays.
+		foreach($data as $field => $value)
+		{
+			$fields[] = $field;
+			$values[] = $value;
+		}
+		
+		// Run the query.
+		$this->query("INSERT INTO ".$this->prefix.$table." (".implode(', ',$fields).") VALUES(".implode(', ',$values).")");
+	}
+	
+	/**
+	 * Easy DELETE query builder.
+	 *
+	 * @param string $table Table name to delete from
+	 * @param array $args Arguments for the query
+	 */
+	public function delete($table,$data=array())
+	{
+		$query = 'DELETE FROM '.$this->prefix.$table.' ';
+		
+		$limit = (isset($args['limit']) ? ' LIMIT '.$args['limit'] : NULL);
+		unset($args['limit']);
+		
+		if(is_array($args['where'])) {
+			$fields = array();
+			foreach($args['where'] as $field => $value)
+			{
+				$fields[] = $field."='".$value."'";
+			}
+			$fields = ' WHERE '.implode(' AND ',$fields);
+		} else {
+			$fields = ' WHERE '.$args['where'];
+		}
+		
+		$query .= $fields;
+		$query .= $limit;
+		
+		$this->query($query);
+	}
 }
