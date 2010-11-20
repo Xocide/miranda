@@ -23,6 +23,24 @@ namespace Miranda;
 class Loader
 {
 	private $models = array();
+	private $classes = array();
+	
+	public function library($class)
+	{
+		global $miranda, $db;
+		
+		if(file_exists(APPPATH.'libs/'.strtolower($class).'.php'))
+			include(APPPATH.'libs/'.strtolower($class).'.php');
+		elseif(file_exists(COREPATH.'libs/'.strtolower($class).'.php'))
+			include(COREPATH.'libs/'.strtolower($class).'.php');
+		else
+			error("cant load library: ".$class);
+		
+		$this->classes[$class] = new $class();
+		if(isset($db))	$this->classes[$class]->db = $db;
+		
+		return $this->classes[$class];
+	}
 	
 	/**
 	 * Loads a helper
@@ -41,6 +59,8 @@ class Loader
 	
 	public function model($name)
 	{
+		global $miranda, $db;
+		
 		if(file_exists(APPPATH.'models/'.$name.'.php'))
 			include(APPPATH.'models/'.$name.'.php');
 		else
@@ -48,6 +68,8 @@ class Loader
 		
 		$model = $name.'Model';
 		$this->models[$name] = new $model;
+		
+		if(isset($db))	$this->models[$name]->db = $db;
 		
 		return $this->models[$name];
 	}

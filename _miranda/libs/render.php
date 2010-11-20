@@ -42,8 +42,9 @@ class Render
 		global $miranda;
 		
 		// Make the set variables accessible.
-		foreach($miranda->_vars as $var => $val)
-			$$var = $val;
+		foreach($miranda->_vars as $var => $val) $$var = $val;
+		
+		
 		
 		$view = strtolower($view);
 		if(!file_exists(APPPATH.'views/'.$view.'.php'))
@@ -75,8 +76,9 @@ class Render
 		global $miranda;
 		
 		// Make the set variables accessible.
-		foreach($miranda->_vars as $var => $val)
-			$$var = $val;
+		foreach($miranda->_vars as $var => $val) $$var = $val;
+		
+		$_extra = $miranda->_extra;
 		
 		$output = $this->final_output;
 		
@@ -93,7 +95,7 @@ class Render
 		{
 			if(isset($_SERVER['HTTP_ACCEPT_ENCODING']) and strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)
 			{
-				ob_start('ob_gzhandler');
+				if($_SERVER['HTTP_HOST'] != 'localhost') ob_start('ob_gzhandler');
 			}
 		}
 		

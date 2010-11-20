@@ -29,6 +29,8 @@ class Miranda
 	 */
 	public $_layout = 'default';
 	
+	public $_extra = array('css'=>array(),'js'=>array());
+	
 	/**
 	 * Variables for the views.
 	 */
@@ -39,7 +41,7 @@ class Miranda
 	
 	public function __construct()
 	{
-		global $render,$db;
+		global $render,$db,$uri;
 		
 		// Get the flash message
 		if(isset($_SESSION['flash']))
@@ -47,9 +49,12 @@ class Miranda
 			$this->_flash = $_SESSION['flash'];
 			unset($_SESSION['flash']);
 		}
+		$this->set('_flash',$this->_flash);
+		
+		$this->uri = $uri;
 		
 		// Get the core classes
-		$this->db = $db;
+		if(isset($db)) $this->db = $db;
 		$this->render = $render;
 		$this->load = new Loader;
 		
@@ -80,5 +85,10 @@ class Miranda
 			return $this->_flash;
 		else
 			$_SESSION['flash'] = $message;
+	}
+	
+	public function _css($file)
+	{
+		$this->_extra['css'][] = $file;
 	}
 }

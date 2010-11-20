@@ -20,6 +20,8 @@
 
 session_start();
 
+header ('Content-type: text/html; charset=utf-8');
+
 // Setup the core libraries.
 use \Miranda\Loader as Load;
 use \Miranda\Router as Router;

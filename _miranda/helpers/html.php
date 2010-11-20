@@ -29,7 +29,7 @@ class HTML
 	 */
 	public static function link($url,$label,$options=array())
 	{
-		return '<a href="'.$url.'"'.(isset($options['class']) ? ' class="'.$options['class'].'"' :'').'>'.$label.'</a>'.PHP_EOL;
+		return '<a href="'.$url.'"'.(isset($options['class']) ? ' class="'.$options['class'].'"' :'').'>'.$label.'</a>';
 	}
 	
 	/**
@@ -51,10 +51,25 @@ class HTML
 	{
 		return '<script src="'.$file.'" type="text/javascript"></script>'.PHP_EOL;
 	}
+	
+	public static function image($url,$args=array())
+	{
+		return '<img src="'.$url.'" '.(isset($args['border']) ? 'border="'.$args['border'].'"' :'').'/>';
+	}
 }
 
 function anchor($uri='')
 {
 	global $uri;
 	return $uri->anchor(func_get_args());
+}
+
+function altbg($odd='alt0',$even='alt1')
+{
+	static $bg;
+	
+	if($bg == $odd) $bg = $even;
+	else $bg = $odd;
+	
+	return $bg;
 }
