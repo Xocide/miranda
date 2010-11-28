@@ -18,8 +18,6 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace App\Controllers;
-
 class WelcomeController extends AppController
 {
 	public function index()

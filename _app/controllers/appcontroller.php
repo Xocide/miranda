@@ -18,7 +18,7 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace App\Controllers;
+//namespace App\Controllers;
 
 class AppController extends \Miranda\Miranda
 {

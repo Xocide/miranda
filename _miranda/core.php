@@ -53,7 +53,8 @@ require(APPPATH."controllers/appcontroller.php");
 
 // Do the routing
 Router::route();
-$controller = '\App\Controllers\\'.Router::$controller.'Controller'; // Build the controller name with namespace.
+//$controller = '\App\Controllers\\'.Router::$controller.'Controller'; // Build the controller name with namespace.
+$controller = Router::$controller.'Controller';
 $method = Router::$method;
 
 // Load the controller
