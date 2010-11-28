@@ -40,6 +40,31 @@ class Form
 		return self::input('submit',$name,array('value'=>$text));
 	}
 	
+	public static function textarea($name,$args=array())
+	{
+		return self::input('textarea',$name,$args);
+	}
+	
+	public static function checkbox($name,$value,$args=array())
+	{
+		$args['value'] = $value;
+		return self::input('checkbox',$name,$args);
+	}
+	
+	public static function select($name,$values,$args=array())
+	{
+		$select = '<select name="'.$name.'">';
+		
+		foreach($values as $value)
+		{
+			$select .= '<option value="'.$value['value'].'">'.$value['text'].'</option>';
+		}
+		
+		$select .= '</select>';
+		
+		return $select;
+	}
+	
 	public static function input($type,$name,$args)
 	{
 		if(isset($args['value']))
@@ -53,11 +78,19 @@ class Form
 		or $type == 'password'
 		or $type == 'hidden')
 		{
-			return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" />';
+			return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" class="'.$type.'" />';
+		}
+		elseif($type == 'textarea')
+		{
+			return '<textarea name="'.$name.'">'.$value.'</textarea>';
 		}
 		elseif($type == 'submit')
 		{
-			return '<input type="'.$type.'" value="'.$value.'" />';
+			return '<input type="'.$type.'" value="'.$value.'" class="'.$type.'" />';
+		}
+		elseif($type == 'checkbox')
+		{
+			return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" class="'.$type.'" '.(isset($args['checked']) && $args['checked'] ? 'checked ' :'').'/>';
 		}
 	}
 }
