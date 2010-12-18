@@ -49,7 +49,7 @@ class URI
 	{
 		if(!is_array($segments)) $segments = func_get_args();
 		
-		$path = str_replace('_app/public/index.php','',$_SERVER['SCRIPT_NAME']);
+		$path = str_replace('app/public/index.php','',$_SERVER['SCRIPT_NAME']);
 		return $path.$this->array_to_uri($segments);
 	}
 	

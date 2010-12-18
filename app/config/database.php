@@ -18,7 +18,7 @@
  * along with Miranda. If not, see <http://www.gnu.org/licenses/>.
  */
 
-define("COREPATH",__DIR__.'/miranda/');
-define("APPPATH",__DIR__.'/app/');
-
-require(COREPATH . "core.php");
+$db = array(
+	'engine' => 'SQLite',
+	'file' => 'miranda.sqlite'
+);
