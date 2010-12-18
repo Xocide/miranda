@@ -19,4 +19,4 @@
  */
 
 // Load Miranda
-require("../../_miranda.php");
+require("../../miranda.php");
