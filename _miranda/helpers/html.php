@@ -58,12 +58,23 @@ class HTML
 	}
 }
 
+/**
+ * Returns a URL anchored to the site.
+ *
+ * @example anchor('path','to','page'); turns into http://your.site/path/to/page/
+ */
 function anchor($uri='')
 {
 	global $uri;
 	return $uri->anchor(func_get_args());
 }
 
+/**
+ * Alternate background class generator
+ *
+ * @param string $odd Class for odd rows/cells/etc
+ * @param string $even Class for even rows/cells/etc
+ */
 function altbg($odd='alt0',$even='alt1')
 {
 	static $bg;
